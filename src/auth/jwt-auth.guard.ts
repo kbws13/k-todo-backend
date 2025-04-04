@@ -15,7 +15,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
     async canActivate(ctx: ExecutionContext): Promise<boolean> {
         // 接口是否允许无 token 访问
-        const allowNoToken = this.reflector.getAllAndOverride<boolean>(ALLOW_NO_TOKEN, [ctx.getHandler, ctx.getClass]);
+        const allowNoToken = this.reflector.getAllAndOverride<boolean>(ALLOW_NO_TOKEN, [ctx.getHandler(), ctx.getClass(),]);
         if (allowNoToken) return true;
         // 验证用户是否登录
         const req = ctx.switchToHttp().getRequest();

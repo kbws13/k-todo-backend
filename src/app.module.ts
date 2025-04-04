@@ -11,6 +11,7 @@ import {HttpExceptionsFilter} from "./common/http-exceptions.filter";
 import {ResponseInterceptor} from "./common/response.interceptor";
 import {JwtAuthGuard} from "./auth/jwt-auth.guard";
 import {LoggerMiddleware} from "./common/logger.middleware";
+import {RoleAuthGuard} from "./auth/role-auth.guard";
 
 @Module({
     imports: [
@@ -59,10 +60,10 @@ import {LoggerMiddleware} from "./common/logger.middleware";
             useClass: JwtAuthGuard,
         },
         // 应用接口权限验证守卫
-        // {
-        //     provide: APP_GUARD,
-        //     useClass: RoleAuthGuard,
-        // },
+        {
+            provide: APP_GUARD,
+            useClass: RoleAuthGuard,
+        },
     ],
 })
 export class AppModule implements NestModule{

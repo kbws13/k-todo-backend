@@ -8,7 +8,7 @@ export class UserEntity{
     @Column({type: 'varchar', length: 32, comment: '用户名'})
     username: string;
 
-    @Column({type: 'string', length: 200, comment: '用户密码'})
+    @Column({type: 'varchar', length: 200, comment: '用户密码'})
     password: string;
 
     @Column({ type: 'int', comment: '用户类型 0 管理员 1 普通用户', default: 1 })
