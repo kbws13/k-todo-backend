@@ -30,30 +30,6 @@ let Logger = class Logger {
                         return `${appStr} ${timestamp} ${level} ${contextStr} ${message} `;
                     }))
                 }),
-                new winston_1.transports.DailyRotateFile({
-                    dirname: process.cwd() + '/src/logs',
-                    filename: 'application-%DATE%.info.log',
-                    datePattern: 'YYYY-MM-DD',
-                    zippedArchive: true,
-                    maxSize: '20m',
-                    maxFiles: '7d',
-                    format: winston_1.format.combine(winston_1.format.timestamp({
-                        format: 'YYYY-MM-DD HH:mm:ss',
-                    }), winston_1.format.json()),
-                    level: 'info',
-                }),
-                new winston_1.transports.DailyRotateFile({
-                    dirname: process.cwd() + '/src/logs',
-                    filename: 'application-%DATE%.error.log',
-                    datePattern: 'YYYY-MM-DD',
-                    zippedArchive: true,
-                    maxSize: '20m',
-                    maxFiles: '14d',
-                    format: winston_1.format.combine(winston_1.format.timestamp({
-                        format: 'YYYY-MM-DD HH:mm:ss',
-                    }), winston_1.format.json()),
-                    level: 'error',
-                }),
             ]
         });
     }

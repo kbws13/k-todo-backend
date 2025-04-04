@@ -21,10 +21,4 @@ export declare class SystemController {
     sendEmailForRegistry(dto: {
         email: string;
     }): Promise<string>;
-    uploadFile(file: Express.Multer.File, data: {
-        type: string;
-    }): Promise<{
-        url: string;
-        type: string;
-    }>;
 }

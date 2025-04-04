@@ -11,9 +11,6 @@ const common_1 = require("@nestjs/common");
 const user_module_1 = require("../user/user.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("../user/entities/user.entity");
-const platform_express_1 = require("@nestjs/platform-express");
-const multer_1 = require("multer");
-const path_1 = require("path");
 const system_service_1 = require("./system.service");
 const mail_service_1 = require("../common/mail/mail.service");
 const system_controller_1 = require("./system.controller");
@@ -25,18 +22,6 @@ exports.SystemModule = SystemModule = __decorate([
         imports: [
             user_module_1.UserModule,
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.UserEntity]),
-            platform_express_1.MulterModule.register({
-                storage: (0, multer_1.diskStorage)({
-                    destination: './uploads',
-                    filename: (_, file, cb) => {
-                        const randomName = Array(32)
-                            .fill(null)
-                            .map(() => Math.round(Math.random() * 16).toString(16))
-                            .join('');
-                        return cb(null, `${randomName}${(0, path_1.extname)(file.originalname)}`);
-                    },
-                }),
-            }),
         ],
         controllers: [system_controller_1.SystemController],
         providers: [system_service_1.SystemService, mail_service_1.MailService]

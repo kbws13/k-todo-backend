@@ -24,12 +24,6 @@ let SystemService = class SystemService {
         await this.redisService.set(redisKey, code, 60 * 5);
         return '发送成功';
     }
-    async upload(file, type) {
-        return {
-            url: `http://localhost:3333/${file.path}`,
-            type
-        };
-    }
 };
 exports.SystemService = SystemService;
 __decorate([
