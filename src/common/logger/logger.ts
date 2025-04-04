@@ -1,12 +1,10 @@
 import {Injectable, LoggerService} from "@nestjs/common";
 import 'winston-daily-rotate-file';
-import {
-    Logger as WinstonLogger, createLogger,
-    format,
-    transports,
-} from 'winston';
-import * as chalk from 'chalk';
-import * as dayjs from 'dayjs';
+import {createLogger, format, Logger as WinstonLogger, transports,} from 'winston';
+import chalk from 'chalk';
+import dayjs from 'dayjs';
+import {ConsoleTransportOptions} from "winston/lib/winston/transports";
+import DailyRotateFile from "winston-daily-rotate-file";
 
 @Injectable()
 export class Logger implements LoggerService {
@@ -29,7 +27,7 @@ export class Logger implements LoggerService {
                             return `${appStr} ${timestamp} ${level} ${contextStr} ${message} `;
                         }),
                     )
-                }),
+                } as ConsoleTransportOptions),
                 // 保存到文件
                 new transports.DailyRotateFile({
                     // 日志文件文件夹
@@ -53,7 +51,7 @@ export class Logger implements LoggerService {
                     ),
                     // 日志等级，不设置所有日志将在同一个文件
                     level: 'info',
-                }),
+                } as DailyRotateFile.DailyRotateFileTransportOptions),
                 // 同上述方法，区分error日志和info日志，保存在不同文件，方便问题排查
                 new transports.DailyRotateFile({
                     dirname: process.cwd() + '/src/logs',
@@ -74,7 +72,7 @@ export class Logger implements LoggerService {
         })
     }
     log(message: string, context: string) {
-        const timestamp = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+        const timestamp = dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss')
         this.logger.log('info', message, { context, timestamp });
     }
     info(message: string, context: string) {
