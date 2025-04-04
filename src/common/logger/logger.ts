@@ -4,7 +4,6 @@ import {createLogger, format, Logger as WinstonLogger, transports,} from 'winsto
 import chalk from 'chalk';
 import dayjs from 'dayjs';
 import {ConsoleTransportOptions} from "winston/lib/winston/transports";
-import DailyRotateFile from "winston-daily-rotate-file";
 
 @Injectable()
 export class Logger implements LoggerService {
@@ -28,46 +27,46 @@ export class Logger implements LoggerService {
                         }),
                     )
                 } as ConsoleTransportOptions),
-                // 保存到文件
-                new transports.DailyRotateFile({
-                    // 日志文件文件夹
-                    dirname: process.cwd() + '/src/logs',
-                    // 日志文件名 %DATE% 会自动设置为当前日期
-                    filename: 'application-%DATE%.info.log',
-                    // 日期格式
-                    datePattern: 'YYYY-MM-DD',
-                    // 压缩文档，用于定义是否对存档的日志文件进行 gzip 压缩 默认值 false
-                    zippedArchive: true,
-                    // 文件最大大小，可以是bytes、kb、mb、gb
-                    maxSize: '20m',
-                    // 最大文件数，可以是文件数也可以是天数，天数加单位"d"，
-                    maxFiles: '7d',
-                    // 格式定义，同winston
-                    format: format.combine(
-                        format.timestamp({
-                            format: 'YYYY-MM-DD HH:mm:ss',
-                        }),
-                        format.json(),
-                    ),
-                    // 日志等级，不设置所有日志将在同一个文件
-                    level: 'info',
-                } as DailyRotateFile.DailyRotateFileTransportOptions),
-                // 同上述方法，区分error日志和info日志，保存在不同文件，方便问题排查
-                new transports.DailyRotateFile({
-                    dirname: process.cwd() + '/src/logs',
-                    filename: 'application-%DATE%.error.log',
-                    datePattern: 'YYYY-MM-DD',
-                    zippedArchive: true,
-                    maxSize: '20m',
-                    maxFiles: '14d',
-                    format: format.combine(
-                        format.timestamp({
-                            format: 'YYYY-MM-DD HH:mm:ss',
-                        }),
-                        format.json(),
-                    ),
-                    level: 'error',
-                }),
+                // // 保存到文件
+                // new transports.DailyRotateFile({
+                //     // 日志文件文件夹
+                //     dirname: process.cwd() + '/src/logs',
+                //     // 日志文件名 %DATE% 会自动设置为当前日期
+                //     filename: 'application-%DATE%.info.log',
+                //     // 日期格式
+                //     datePattern: 'YYYY-MM-DD',
+                //     // 压缩文档，用于定义是否对存档的日志文件进行 gzip 压缩 默认值 false
+                //     zippedArchive: true,
+                //     // 文件最大大小，可以是bytes、kb、mb、gb
+                //     maxSize: '20m',
+                //     // 最大文件数，可以是文件数也可以是天数，天数加单位"d"，
+                //     maxFiles: '7d',
+                //     // 格式定义，同winston
+                //     format: format.combine(
+                //         format.timestamp({
+                //             format: 'YYYY-MM-DD HH:mm:ss',
+                //         }),
+                //         format.json(),
+                //     ),
+                //     // 日志等级，不设置所有日志将在同一个文件
+                //     level: 'info',
+                // } as DailyRotateFile.DailyRotateFileTransportOptions),
+                // // 同上述方法，区分error日志和info日志，保存在不同文件，方便问题排查
+                // new transports.DailyRotateFile({
+                //     dirname: process.cwd() + '/src/logs',
+                //     filename: 'application-%DATE%.error.log',
+                //     datePattern: 'YYYY-MM-DD',
+                //     zippedArchive: true,
+                //     maxSize: '20m',
+                //     maxFiles: '14d',
+                //     format: format.combine(
+                //         format.timestamp({
+                //             format: 'YYYY-MM-DD HH:mm:ss',
+                //         }),
+                //         format.json(),
+                //     ),
+                //     level: 'error',
+                // }),
             ]
         })
     }
