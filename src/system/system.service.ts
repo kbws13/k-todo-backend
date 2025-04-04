@@ -32,11 +32,4 @@ export class SystemService {
         await this.redisService.set(redisKey, code, 60*5);
         return '发送成功';
     }
-
-    async upload(file: Express.Multer.File, type: string) {
-        return {
-            url: `http://localhost:3333/${file.path}`,
-            type
-        }
-    }
 }
