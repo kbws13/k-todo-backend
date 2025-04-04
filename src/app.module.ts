@@ -12,6 +12,7 @@ import {ResponseInterceptor} from "./common/response.interceptor";
 import {JwtAuthGuard} from "./auth/jwt-auth.guard";
 import {LoggerMiddleware} from "./common/logger.middleware";
 import {RoleAuthGuard} from "./auth/role-auth.guard";
+import { SystemModule } from './system/system.module';
 
 @Module({
     imports: [
@@ -39,7 +40,8 @@ import {RoleAuthGuard} from "./auth/role-auth.guard";
         ConfigModule.forRoot({
             envFilePath: '.env',
             isGlobal: true,
-        })
+        }),
+        SystemModule
     ],
     controllers: [AppController],
     providers: [

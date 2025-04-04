@@ -11,8 +11,11 @@ export class UserEntity{
     @Column({type: 'varchar', length: 200, comment: '用户密码'})
     password: string;
 
+    @Column({ type: 'varchar', length: 50, nullable: false, comment: '哈希加密的盐' })
+    salt: string;
+
     @Column({ type: 'int', comment: '用户类型 0 管理员 1 普通用户', default: 1 })
-    userType: number;
+    userRole: number;
 
     @Column({ type: 'varchar', comment: '用户邮箱', default: ''})
     email: string;
