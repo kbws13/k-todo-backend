@@ -13,6 +13,7 @@ import {JwtAuthGuard} from "./auth/jwt-auth.guard";
 import {LoggerMiddleware} from "./common/logger.middleware";
 import {RoleAuthGuard} from "./auth/role-auth.guard";
 import { SystemModule } from './system/system.module';
+import { TodoListModule } from './todo-list/todo-list.module';
 
 @Module({
     imports: [
@@ -41,7 +42,8 @@ import { SystemModule } from './system/system.module';
             envFilePath: '.env',
             isGlobal: true,
         }),
-        SystemModule
+        SystemModule,
+        TodoListModule
     ],
     controllers: [AppController],
     providers: [

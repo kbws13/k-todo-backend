@@ -2,7 +2,6 @@ import {CanActivate, ExecutionContext, Inject, Injectable} from "@nestjs/common"
 import {Reflector} from "@nestjs/core";
 import {ALLOW_NO_TOKEN} from "../common/decorators/token.decorator";
 import {ALLOW_NO_PERMISSION} from "../common/decorators/permission.decorator";
-import {UserRoleType} from "../common/enums/common.enum";
 import {Logger} from "../common/logger/logger";
 
 @Injectable()
@@ -27,10 +26,10 @@ export class RoleAuthGuard implements CanActivate {
         );
         if (allowNoPerm) return true;
         const req = ctx.switchToHttp().getRequest();
-        const user = req.user;
+        const token = req.headers['token'];
+        this.logger.log(token, 'token');
         // 没有携带 token 直接返回 false
-        if (!user) return false;
-        // 管理员拥有所有接口权限，不需要判断
-        return user.userType === UserRoleType.ADMIN;
+        if (!token) return false;
+        return true;
     }
 }

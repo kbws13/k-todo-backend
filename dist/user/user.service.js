@@ -72,9 +72,11 @@ let UserService = class UserService {
         return this.jwtService.sign(payload);
     }
     verifyToken(token) {
-        if (!token)
-            return null;
-        const id = this.jwtService.verify(token.replace('Bearer ', ''));
+        if (!token) {
+            throw new common_1.HttpException('未登录', common_1.HttpStatus.UNAUTHORIZED);
+        }
+        const res = this.jwtService.verify(token.replace('Bearer ', ''));
+        return res.id;
     }
 };
 exports.UserService = UserService;

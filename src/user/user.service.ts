@@ -31,7 +31,7 @@ export class UserService {
      * @param createUserDto 创建用户 Dto
      */
     async registry(createUserDto: CreateUserDto) {
-        const { email } = createUserDto;
+        const {email} = createUserDto;
         // 判断用户是否存在
         const user = await this.userRepository
             .createQueryBuilder('su')
@@ -48,7 +48,7 @@ export class UserService {
         // 校验注册验证码
         const codeRedisKey = getRedisKey(RedisKeyPrefix.REGISTRY_CODE, email);
         const code = await this.redisService.get(codeRedisKey);
-        if(!code || code !== createUserDto.code) {
+        if (!code || code !== createUserDto.code) {
             throw new HttpException(
                 '验证码有误或已过期',
                 HttpStatus.EXPECTATION_FAILED,
@@ -59,11 +59,11 @@ export class UserService {
         createUserDto.password = await hash(createUserDto.password, salt);
         const newUser = plainToClass(
             UserEntity,
-            { salt, ...createUserDto },
-            { ignoreDecorators: true },
+            {salt, ...createUserDto},
+            {ignoreDecorators: true},
         );
         // 创建用户
-        const { password, salt: salter, ...rest } = await this.userRepository.save(newUser);
+        const {password, salt: salter, ...rest} = await this.userRepository.save(newUser);
         return rest;
     }
 
@@ -100,7 +100,7 @@ export class UserService {
      */
     async findOneById(id: number): Promise<UserEntity> {
         const user = await this.userRepository.findOneBy({id});
-        if(!user) return null;
+        if (!user) return null;
         delete user.password;
         return user;
     }
@@ -109,8 +109,11 @@ export class UserService {
         return this.jwtService.sign(payload);
     }
 
-    verifyToken(token: string): string {
-        if (!token) return null;
-        const id = this.jwtService.verify(token.replace('Bearer ', ''));
+    verifyToken(token: string): number {
+        if (!token) {
+            throw new HttpException('未登录', HttpStatus.UNAUTHORIZED);
+        }
+        const res = this.jwtService.verify(token.replace('Bearer ', ''));
+        return res.id;
     }
 }

@@ -22,5 +22,5 @@ export declare class UserService {
     }>;
     findOneById(id: number): Promise<UserEntity>;
     generateAccessToken(payload: Record<string, any>): string;
-    verifyToken(token: string): string;
+    verifyToken(token: string): number;
 }

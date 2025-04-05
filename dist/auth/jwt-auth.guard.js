@@ -26,13 +26,13 @@ let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
         if (allowNoToken)
             return true;
         const req = ctx.switchToHttp().getRequest();
-        const access_token = req.get('Authorization');
-        if (!access_token)
+        const token = req.headers['token'];
+        if (!token)
             throw new common_1.HttpException('未登录，请先登录', common_1.HttpStatus.UNAUTHORIZED);
-        const userId = this.userService.verifyToken(access_token);
+        const userId = this.userService.verifyToken(token);
         if (!userId)
             throw new common_1.HttpException('登录过期，请重新登录', common_1.HttpStatus.UNAUTHORIZED);
-        return super.canActivate(ctx);
+        return true;
     }
 };
 exports.JwtAuthGuard = JwtAuthGuard;

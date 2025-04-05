@@ -14,7 +14,6 @@ const common_1 = require("@nestjs/common");
 const core_1 = require("@nestjs/core");
 const token_decorator_1 = require("../common/decorators/token.decorator");
 const permission_decorator_1 = require("../common/decorators/permission.decorator");
-const common_enum_1 = require("../common/enums/common.enum");
 const logger_1 = require("../common/logger/logger");
 let RoleAuthGuard = class RoleAuthGuard {
     constructor(reflector) {
@@ -29,10 +28,11 @@ let RoleAuthGuard = class RoleAuthGuard {
         if (allowNoPerm)
             return true;
         const req = ctx.switchToHttp().getRequest();
-        const user = req.user;
-        if (!user)
+        const token = req.headers['token'];
+        this.logger.log(token, 'token');
+        if (!token)
             return false;
-        return user.userType === common_enum_1.UserRoleType.ADMIN;
+        return true;
     }
 };
 exports.RoleAuthGuard = RoleAuthGuard;
