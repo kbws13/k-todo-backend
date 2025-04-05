@@ -14,6 +14,7 @@ import {LoggerMiddleware} from "./common/logger.middleware";
 import {RoleAuthGuard} from "./auth/role-auth.guard";
 import { SystemModule } from './system/system.module';
 import { TodoListModule } from './todo-list/todo-list.module';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
     imports: [
@@ -43,7 +44,8 @@ import { TodoListModule } from './todo-list/todo-list.module';
             isGlobal: true,
         }),
         SystemModule,
-        TodoListModule
+        TodoListModule,
+        TodoModule
     ],
     controllers: [AppController],
     providers: [

@@ -23,6 +23,7 @@ const logger_middleware_1 = require("./common/logger.middleware");
 const role_auth_guard_1 = require("./auth/role-auth.guard");
 const system_module_1 = require("./system/system.module");
 const todo_list_module_1 = require("./todo-list/todo-list.module");
+const todo_module_1 = require("./todo/todo.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -57,7 +58,8 @@ exports.AppModule = AppModule = __decorate([
                 isGlobal: true,
             }),
             system_module_1.SystemModule,
-            todo_list_module_1.TodoListModule
+            todo_list_module_1.TodoListModule,
+            todo_module_1.TodoModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [

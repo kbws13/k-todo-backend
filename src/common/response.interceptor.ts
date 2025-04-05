@@ -7,6 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Logger } from './logger/logger';
+import {instanceToPlain} from "class-transformer";
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
@@ -17,6 +18,7 @@ export class ResponseInterceptor implements NestInterceptor {
         const res = context.switchToHttp().getResponse()
         return next.handle().pipe(
             map((data) => {
+                data = instanceToPlain(data)
                 const logFormat = `
 ##############################################################################################################
 Request original url: ${req.originalUrl}

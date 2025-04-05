@@ -12,44 +12,53 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TodoListEntity = void 0;
+exports.TodoEntity = void 0;
 const typeorm_1 = require("typeorm");
 const dayjs_1 = __importDefault(require("dayjs"));
 const class_transformer_1 = require("class-transformer");
-let TodoListEntity = class TodoListEntity {
+let TodoEntity = class TodoEntity {
 };
-exports.TodoListEntity = TodoListEntity;
+exports.TodoEntity = TodoEntity;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({ type: 'int' }),
     __metadata("design:type", Number)
-], TodoListEntity.prototype, "id", void 0);
+], TodoEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', length: 200, comment: '列表名' }),
+    (0, typeorm_1.Column)({ type: 'text', nullable: false, comment: '任务名' }),
     __metadata("design:type", String)
-], TodoListEntity.prototype, "content", void 0);
+], TodoEntity.prototype, "content", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'text', nullable: true, comment: '备注' }),
+    __metadata("design:type", String)
+], TodoEntity.prototype, "desc", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'int', nullable: false, comment: 'todoList id' }),
+    __metadata("design:type", Number)
+], TodoEntity.prototype, "todoListId", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'boolean', nullable: false, default: false, comment: '0 未完成 1 已完成' }),
+    __metadata("design:type", Boolean)
+], TodoEntity.prototype, "completed", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'timestamp', nullable: true, comment: '提醒时间' }),
+    (0, class_transformer_1.Transform)(({ value }) => value ? (0, dayjs_1.default)(value).format('YYYY-MM-DD HH:mm:ss') : null),
+    __metadata("design:type", Date)
+], TodoEntity.prototype, "remindTime", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'int', nullable: false, comment: '用户 id' }),
     __metadata("design:type", Number)
-], TodoListEntity.prototype, "userId", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'int', default: 0, comment: '任务总数' }),
-    __metadata("design:type", Number)
-], TodoListEntity.prototype, "totalCount", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'int', default: 0, comment: '已经完成的数量' }),
-    __metadata("design:type", Number)
-], TodoListEntity.prototype, "completeCount", void 0);
+], TodoEntity.prototype, "userId", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', comment: '创建时间' }),
     (0, class_transformer_1.Transform)(({ value }) => value ? (0, dayjs_1.default)(value).format('YYYY-MM-DD HH:mm:ss') : null),
     __metadata("design:type", Date)
-], TodoListEntity.prototype, "createTime", void 0);
+], TodoEntity.prototype, "createTime", void 0);
 __decorate([
     (0, typeorm_1.UpdateDateColumn)({ type: 'timestamp', comment: '更新时间' }),
     (0, class_transformer_1.Transform)(({ value }) => value ? (0, dayjs_1.default)(value).format('YYYY-MM-DD HH:mm:ss') : null),
     __metadata("design:type", Date)
-], TodoListEntity.prototype, "updateTime", void 0);
-exports.TodoListEntity = TodoListEntity = __decorate([
-    (0, typeorm_1.Entity)('todoList')
-], TodoListEntity);
-//# sourceMappingURL=todo-list.entity.js.map
+], TodoEntity.prototype, "updateTime", void 0);
+exports.TodoEntity = TodoEntity = __decorate([
+    (0, typeorm_1.Entity)('todo')
+], TodoEntity);
+//# sourceMappingURL=todo.entity.js.map

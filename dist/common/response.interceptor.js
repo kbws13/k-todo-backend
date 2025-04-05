@@ -13,6 +13,7 @@ exports.ResponseInterceptor = void 0;
 const common_1 = require("@nestjs/common");
 const operators_1 = require("rxjs/operators");
 const logger_1 = require("./logger/logger");
+const class_transformer_1 = require("class-transformer");
 let ResponseInterceptor = class ResponseInterceptor {
     constructor(logger) {
         this.logger = logger;
@@ -21,6 +22,7 @@ let ResponseInterceptor = class ResponseInterceptor {
         const req = context.getArgByIndex(1).req;
         const res = context.switchToHttp().getResponse();
         return next.handle().pipe((0, operators_1.map)((data) => {
+            data = (0, class_transformer_1.instanceToPlain)(data);
             const logFormat = `
 ##############################################################################################################
 Request original url: ${req.originalUrl}
