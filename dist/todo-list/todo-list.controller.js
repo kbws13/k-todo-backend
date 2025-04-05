@@ -30,14 +30,17 @@ let TodoListController = class TodoListController {
         const userId = this.userService.verifyToken(req.headers['token']);
         return this.todoListService.add(createTodoListDto, userId);
     }
-    getById(id) {
-        return this.todoListService.getById(id);
+    getById(id, req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.todoListService.getById(id, userId);
     }
-    update(todoListUpdateDto) {
-        return this.todoListService.update(todoListUpdateDto);
+    update(todoListUpdateDto, req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.todoListService.update(todoListUpdateDto, userId);
     }
-    delete(id) {
-        return this.todoListService.delete(id);
+    delete(id, req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.todoListService.delete(id, userId);
     }
 };
 exports.TodoListController = TodoListController;
@@ -63,22 +66,25 @@ __decorate([
 __decorate([
     (0, common_1.Get)('getById/:id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], TodoListController.prototype, "getById", null);
 __decorate([
     (0, common_1.Post)('update'),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_todo_list_dto_1.UpdateTodoListDto]),
+    __metadata("design:paramtypes", [update_todo_list_dto_1.UpdateTodoListDto, Object]),
     __metadata("design:returntype", void 0)
 ], TodoListController.prototype, "update", null);
 __decorate([
     (0, common_1.Post)('delete'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], TodoListController.prototype, "delete", null);
 exports.TodoListController = TodoListController = __decorate([

@@ -9,8 +9,8 @@ export declare class TodoController {
         todos: import("./emtity/todo.entity").TodoEntity[];
     }>;
     add(createTodoDto: CreateTodoDto, req: any): Promise<import("./emtity/todo.entity").TodoEntity>;
-    getById(id: number): Promise<import("./emtity/todo.entity").TodoEntity>;
-    update(updateTodoDto: UpdateTodoDto): Promise<{
+    getById(id: number, req: any): Promise<import("./emtity/todo.entity").TodoEntity>;
+    update(updateTodoDto: UpdateTodoDto, req: any): Promise<{
         id: number;
         content: string;
         desc: string;
@@ -21,5 +21,5 @@ export declare class TodoController {
         createTime: Date;
         updateTime: Date;
     } & import("./emtity/todo.entity").TodoEntity>;
-    delete(id: number): Promise<import("typeorm").DeleteResult>;
+    delete(id: number, req: any): Promise<import("typeorm").DeleteResult>;
 }

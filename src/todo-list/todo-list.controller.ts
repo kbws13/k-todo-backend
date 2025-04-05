@@ -24,17 +24,20 @@ export class TodoListController {
     }
 
     @Get('getById/:id')
-    getById(@Param('id') id: number) {
-        return this.todoListService.getById(id);
+    getById(@Param('id') id: number, @Req() req: any) {
+        const userId = this.userService.verifyToken(req.headers['token'])
+        return this.todoListService.getById(id, userId);
     }
 
     @Post('update')
-    update(@Body() todoListUpdateDto: UpdateTodoListDto) {
-        return this.todoListService.update(todoListUpdateDto);
+    update(@Body() todoListUpdateDto: UpdateTodoListDto, @Req() req: any) {
+        const userId = this.userService.verifyToken(req.headers['token'])
+        return this.todoListService.update(todoListUpdateDto, userId);
     }
 
     @Post('delete')
-    delete(@Param('id') id: number) {
-        return this.todoListService.delete(id);
+    delete(@Param('id') id: number, @Req() req: any) {
+        const userId = this.userService.verifyToken(req.headers['token'])
+        return this.todoListService.delete(id, userId);
     }
 }

@@ -9,8 +9,8 @@ export declare class TodoListController {
         todoList: import("./entity/todo-list.entity").TodoListEntity[];
     }>;
     add(req: any, createTodoListDto: CreateTodoListDto): Promise<import("./entity/todo-list.entity").TodoListEntity>;
-    getById(id: number): Promise<import("./entity/todo-list.entity").TodoListEntity>;
-    update(todoListUpdateDto: UpdateTodoListDto): Promise<{
+    getById(id: number, req: any): Promise<import("./entity/todo-list.entity").TodoListEntity>;
+    update(todoListUpdateDto: UpdateTodoListDto, req: any): Promise<{
         id: number;
         content: string;
         userId: number;
@@ -19,5 +19,5 @@ export declare class TodoListController {
         createTime: Date;
         updateTime: Date;
     } & import("./entity/todo-list.entity").TodoListEntity>;
-    delete(id: number): Promise<import("typeorm").DeleteResult>;
+    delete(id: number, req: any): Promise<import("typeorm").DeleteResult>;
 }

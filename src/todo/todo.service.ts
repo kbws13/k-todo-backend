@@ -30,14 +30,14 @@ export class TodoService {
         return await this.todoRepository.save(todo);
     }
 
-    async getById(id: number) {
+    async getById(id: number, userId: number) {
         return await this.todoRepository.findOne({
-            where: {id}
+            where: {id, userId}
         });
     }
 
-    async update(updateTodoDto: UpdateTodoDto) {
-        const todo = await this.todoRepository.findOne({ where: { id: updateTodoDto.id } });
+    async update(updateTodoDto: UpdateTodoDto, userId: number) {
+        const todo = await this.todoRepository.findOne({ where: { id: updateTodoDto.id, userId } });
         if (!todo) {
             throw new Error('TodoList not found');
         }
@@ -47,7 +47,7 @@ export class TodoService {
         });
     }
 
-    async delete(id: number) {
-        return await this.todoRepository.delete(id);
+    async delete(id: number, userId: number) {
+        return await this.todoRepository.delete({id, userId});
     }
 }

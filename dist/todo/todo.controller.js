@@ -30,14 +30,17 @@ let TodoController = class TodoController {
         const userId = this.userService.verifyToken(req.headers['token']);
         return this.todoService.add(createTodoDto, userId);
     }
-    getById(id) {
-        return this.todoService.getById(id);
+    getById(id, req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.todoService.getById(id, userId);
     }
-    update(updateTodoDto) {
-        return this.todoService.update(updateTodoDto);
+    update(updateTodoDto, req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.todoService.update(updateTodoDto, userId);
     }
-    delete(id) {
-        return this.todoService.delete(id);
+    delete(id, req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.todoService.delete(id, userId);
     }
 };
 exports.TodoController = TodoController;
@@ -64,22 +67,25 @@ __decorate([
 __decorate([
     (0, common_1.Get)("getById/:id"),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "getById", null);
 __decorate([
     (0, common_1.Post)('update'),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_todo_dto_1.UpdateTodoDto]),
+    __metadata("design:paramtypes", [update_todo_dto_1.UpdateTodoDto, Object]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "update", null);
 __decorate([
     (0, common_1.Post)('delete'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "delete", null);
 exports.TodoController = TodoController = __decorate([

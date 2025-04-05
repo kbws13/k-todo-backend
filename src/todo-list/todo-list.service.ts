@@ -1,10 +1,9 @@
-import {Inject, Injectable} from "@nestjs/common";
+import {Injectable} from "@nestjs/common";
 import {InjectRepository} from "@nestjs/typeorm";
 import {TodoListEntity} from "./entity/todo-list.entity";
 import {Repository} from "typeorm";
 import {CreateTodoListDto} from "./dto/create-todo-list.dto";
 import {plainToClass} from "class-transformer";
-import {Logger} from "../common/logger/logger";
 import {UpdateTodoListDto} from "./dto/update-todo-list.dto";
 
 @Injectable()
@@ -12,9 +11,6 @@ export class TodoListService {
 
     @InjectRepository(TodoListEntity)
     private todoListRepository: Repository<TodoListEntity>;
-
-    @Inject(Logger)
-    private logger: Logger;
 
     async list(userId: number) {
         const todoList = await this.todoListRepository.find({
@@ -37,14 +33,16 @@ export class TodoListService {
         return res;
     }
 
-    async getById(id: number) {
+    async getById(id: number, userId: number) {
         return await this.todoListRepository.findOne({
-            where: {id}
+            where: {id, userId}
         });
     }
 
-    async update(updateTodoListDto: UpdateTodoListDto) {
-        const todoList = await this.todoListRepository.findOne({ where: { id: updateTodoListDto.id } });
+    async update(updateTodoListDto: UpdateTodoListDto, userId: number) {
+        const todoList = await this.todoListRepository.findOne({
+            where: { id: updateTodoListDto.id, userId }
+        });
         if (!todoList) {
             throw new Error('TodoList not found');
         }
@@ -54,7 +52,7 @@ export class TodoListService {
         });
     }
 
-    async delete(id: number) {
-        return await this.todoListRepository.delete(id);
+    async delete(id: number, userId: number) {
+        return await this.todoListRepository.delete({id, userId});
     }
 }

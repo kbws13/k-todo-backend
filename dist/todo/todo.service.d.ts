@@ -7,8 +7,8 @@ export declare class TodoService {
         todos: TodoEntity[];
     }>;
     add(createTodoDto: CreateTodoDto, userId: number): Promise<TodoEntity>;
-    getById(id: number): Promise<TodoEntity>;
-    update(updateTodoDto: UpdateTodoDto): Promise<{
+    getById(id: number, userId: number): Promise<TodoEntity>;
+    update(updateTodoDto: UpdateTodoDto, userId: number): Promise<{
         id: number;
         content: string;
         desc: string;
@@ -19,5 +19,5 @@ export declare class TodoService {
         createTime: Date;
         updateTime: Date;
     } & TodoEntity>;
-    delete(id: number): Promise<import("typeorm").DeleteResult>;
+    delete(id: number, userId: number): Promise<import("typeorm").DeleteResult>;
 }

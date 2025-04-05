@@ -15,7 +15,6 @@ const typeorm_1 = require("@nestjs/typeorm");
 const todo_list_entity_1 = require("./entity/todo-list.entity");
 const typeorm_2 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
-const logger_1 = require("../common/logger/logger");
 let TodoListService = class TodoListService {
     async list(userId) {
         const todoList = await this.todoListRepository.find({
@@ -31,13 +30,15 @@ let TodoListService = class TodoListService {
         const res = await this.todoListRepository.save(todoList);
         return res;
     }
-    async getById(id) {
+    async getById(id, userId) {
         return await this.todoListRepository.findOne({
-            where: { id }
+            where: { id, userId }
         });
     }
-    async update(updateTodoListDto) {
-        const todoList = await this.todoListRepository.findOne({ where: { id: updateTodoListDto.id } });
+    async update(updateTodoListDto, userId) {
+        const todoList = await this.todoListRepository.findOne({
+            where: { id: updateTodoListDto.id, userId }
+        });
         if (!todoList) {
             throw new Error('TodoList not found');
         }
@@ -46,8 +47,8 @@ let TodoListService = class TodoListService {
             ...updateTodoListDto,
         });
     }
-    async delete(id) {
-        return await this.todoListRepository.delete(id);
+    async delete(id, userId) {
+        return await this.todoListRepository.delete({ id, userId });
     }
 };
 exports.TodoListService = TodoListService;
@@ -55,10 +56,6 @@ __decorate([
     (0, typeorm_1.InjectRepository)(todo_list_entity_1.TodoListEntity),
     __metadata("design:type", typeorm_2.Repository)
 ], TodoListService.prototype, "todoListRepository", void 0);
-__decorate([
-    (0, common_1.Inject)(logger_1.Logger),
-    __metadata("design:type", logger_1.Logger)
-], TodoListService.prototype, "logger", void 0);
 exports.TodoListService = TodoListService = __decorate([
     (0, common_1.Injectable)()
 ], TodoListService);
