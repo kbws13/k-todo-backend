@@ -24,6 +24,7 @@ const role_auth_guard_1 = require("./auth/role-auth.guard");
 const system_module_1 = require("./system/system.module");
 const todo_list_module_1 = require("./todo-list/todo-list.module");
 const todo_module_1 = require("./todo/todo.module");
+const news_module_1 = require("./news/news.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(logger_middleware_1.LoggerMiddleware).forRoutes('*');
@@ -59,7 +60,8 @@ exports.AppModule = AppModule = __decorate([
             }),
             system_module_1.SystemModule,
             todo_list_module_1.TodoListModule,
-            todo_module_1.TodoModule
+            todo_module_1.TodoModule,
+            news_module_1.NewsModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [

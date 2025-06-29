@@ -15,6 +15,7 @@ import {RoleAuthGuard} from "./auth/role-auth.guard";
 import { SystemModule } from './system/system.module';
 import { TodoListModule } from './todo-list/todo-list.module';
 import { TodoModule } from './todo/todo.module';
+import { NewsModule } from './news/news.module';
 
 @Module({
     imports: [
@@ -45,7 +46,8 @@ import { TodoModule } from './todo/todo.module';
         }),
         SystemModule,
         TodoListModule,
-        TodoModule
+        TodoModule,
+        NewsModule
     ],
     controllers: [AppController],
     providers: [
