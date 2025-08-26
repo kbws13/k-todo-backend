@@ -21,6 +21,7 @@ export default async function handler(req: any, res: any) {
             {
                 cors: true,
                 logger: ['error', 'warn'],
+                forceCloseConnections: true, // 防止连接泄漏，加快关闭
             },
         );
 

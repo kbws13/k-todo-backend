@@ -36,7 +36,7 @@ import { ReportModule } from './report/report.module';
                     charset: 'utf8mb4',
                     autoLoadEntities: true,
                     // 生产环境中禁止开启，应该使用数据迁移
-                    synchronize: true,
+                    synchronize: false,
                 };
             },
         }),
