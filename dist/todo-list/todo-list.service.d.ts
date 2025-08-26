@@ -3,6 +3,7 @@ import { CreateTodoListDto } from "./dto/create-todo-list.dto";
 import { UpdateTodoListDto } from "./dto/update-todo-list.dto";
 export declare class TodoListService {
     private todoListRepository;
+    private todoRepository;
     list(userId: number): Promise<{
         todoList: TodoListEntity[];
     }>;

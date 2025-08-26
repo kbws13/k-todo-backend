@@ -5,10 +5,11 @@ import {TodoListController} from "./todo-list.controller";
 import {TodoListService} from "./todo-list.service";
 import {UserModule} from "../user/user.module";
 import {LoggerModule} from "../common/logger/logger.module";
+import {TodoEntity} from "../todo/entity/todo.entity";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([TodoListEntity]),
+        TypeOrmModule.forFeature([TodoListEntity, TodoEntity]),
         UserModule,
         LoggerModule,
     ],

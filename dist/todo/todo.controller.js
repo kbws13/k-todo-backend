@@ -18,6 +18,7 @@ const todo_service_1 = require("./todo.service");
 const user_service_1 = require("../user/user.service");
 const create_todo_dto_1 = require("./dto/create-todo.dto");
 const update_todo_dto_1 = require("./dto/update-todo.dto");
+const complete_todo_dto_1 = require("./dto/complete-todo.dto");
 let TodoController = class TodoController {
     constructor(todoService) {
         this.todoService = todoService;
@@ -41,6 +42,14 @@ let TodoController = class TodoController {
     delete(id, req) {
         const userId = this.userService.verifyToken(req.headers['token']);
         return this.todoService.delete(id, userId);
+    }
+    complete(completeTodoDto, req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.todoService.complete(completeTodoDto, userId);
+    }
+    todayCompleted(id, req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.todoService.getCompletedToday(id, userId);
     }
 };
 exports.TodoController = TodoController;
@@ -88,6 +97,22 @@ __decorate([
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Post)('complete'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [complete_todo_dto_1.CompleteTodoDto, Object]),
+    __metadata("design:returntype", void 0)
+], TodoController.prototype, "complete", null);
+__decorate([
+    (0, common_1.Get)('todayCompleted/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", void 0)
+], TodoController.prototype, "todayCompleted", null);
 exports.TodoController = TodoController = __decorate([
     (0, common_1.Controller)('todo'),
     __metadata("design:paramtypes", [todo_service_1.TodoService])

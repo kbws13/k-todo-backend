@@ -9,11 +9,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TodoModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const todo_entity_1 = require("./emtity/todo.entity");
+const todo_entity_1 = require("./entity/todo.entity");
 const user_module_1 = require("../user/user.module");
 const logger_module_1 = require("../common/logger/logger.module");
 const todo_controller_1 = require("./todo.controller");
 const todo_service_1 = require("./todo.service");
+const todo_list_module_1 = require("../todo-list/todo-list.module");
 let TodoModule = class TodoModule {
 };
 exports.TodoModule = TodoModule;
@@ -23,6 +24,7 @@ exports.TodoModule = TodoModule = __decorate([
             typeorm_1.TypeOrmModule.forFeature([todo_entity_1.TodoEntity]),
             user_module_1.UserModule,
             logger_module_1.LoggerModule,
+            todo_list_module_1.TodoListModule,
         ],
         controllers: [todo_controller_1.TodoController],
         providers: [todo_service_1.TodoService],

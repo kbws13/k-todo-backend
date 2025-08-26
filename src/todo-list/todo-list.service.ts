@@ -5,12 +5,16 @@ import {Repository} from "typeorm";
 import {CreateTodoListDto} from "./dto/create-todo-list.dto";
 import {plainToClass} from "class-transformer";
 import {UpdateTodoListDto} from "./dto/update-todo-list.dto";
+import {TodoEntity} from "../todo/entity/todo.entity";
 
 @Injectable()
 export class TodoListService {
 
     @InjectRepository(TodoListEntity)
     private todoListRepository: Repository<TodoListEntity>;
+
+    @InjectRepository(TodoEntity)
+    private todoRepository: Repository<TodoEntity>;
 
     async list(userId: number) {
         const todoList = await this.todoListRepository.find({
@@ -25,12 +29,11 @@ export class TodoListService {
     async add(createTodoListDto: CreateTodoListDto, userId: number) {
         const todoList = plainToClass(
             TodoListEntity,
-            { ...createTodoListDto, userId,},
+            {...createTodoListDto, userId,},
             {ignoreDecorators: true},
         );
 
-        const res = await this.todoListRepository.save(todoList);
-        return res;
+        return await this.todoListRepository.save(todoList);
     }
 
     async getById(id: number, userId: number) {
@@ -41,7 +44,7 @@ export class TodoListService {
 
     async update(updateTodoListDto: UpdateTodoListDto, userId: number) {
         const todoList = await this.todoListRepository.findOne({
-            where: { id: updateTodoListDto.id, userId }
+            where: {id: updateTodoListDto.id, userId}
         });
         if (!todoList) {
             throw new Error('TodoList not found');
@@ -53,6 +56,11 @@ export class TodoListService {
     }
 
     async delete(id: number, userId: number) {
+        const todoList = await this.todoListRepository.findOne({where: {id, userId}})
+        if (!todoList) {
+            throw new Error('TodoList not found or access denied');
+        }
+        await this.todoRepository.delete({todoListId: id, userId: userId})
         return await this.todoListRepository.delete({id, userId});
     }
 }

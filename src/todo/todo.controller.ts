@@ -3,6 +3,7 @@ import {TodoService} from "./todo.service";
 import {UserService} from "../user/user.service";
 import {CreateTodoDto} from "./dto/create-todo.dto";
 import {UpdateTodoDto} from "./dto/update-todo.dto";
+import {CompleteTodoDto} from "./dto/complete-todo.dto";
 
 @Controller('todo')
 export class TodoController {
@@ -39,5 +40,17 @@ export class TodoController {
     delete(@Param('id') id: number, @Req() req: any) {
         const userId = this.userService.verifyToken(req.headers['token'])
         return this.todoService.delete(id, userId);
+    }
+    
+    @Post('complete')
+    complete(@Body() completeTodoDto: CompleteTodoDto, @Req() req: any) {
+        const userId = this.userService.verifyToken(req.headers['token'])
+        return this.todoService.complete(completeTodoDto, userId)
+    }
+    
+    @Get('todayCompleted/:id')
+    todayCompleted(@Param('id') id: number, @Req() req: any) {
+        const userId = this.userService.verifyToken(req.headers['token'])
+        return this.todoService.getCompletedToday(id, userId)
     }
 }

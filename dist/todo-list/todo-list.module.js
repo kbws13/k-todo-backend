@@ -14,13 +14,14 @@ const todo_list_controller_1 = require("./todo-list.controller");
 const todo_list_service_1 = require("./todo-list.service");
 const user_module_1 = require("../user/user.module");
 const logger_module_1 = require("../common/logger/logger.module");
+const todo_entity_1 = require("../todo/entity/todo.entity");
 let TodoListModule = class TodoListModule {
 };
 exports.TodoListModule = TodoListModule;
 exports.TodoListModule = TodoListModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([todo_list_entity_1.TodoListEntity]),
+            typeorm_1.TypeOrmModule.forFeature([todo_list_entity_1.TodoListEntity, todo_entity_1.TodoEntity]),
             user_module_1.UserModule,
             logger_module_1.LoggerModule,
         ],
