@@ -18,6 +18,7 @@ async function handler(req, res) {
         const nestApp = await core_1.NestFactory.create(app_module_1.AppModule, new platform_express_1.ExpressAdapter(expressServer), {
             cors: true,
             logger: ['error', 'warn'],
+            forceCloseConnections: true,
         });
         const config = nestApp.get(config_1.ConfigService);
         const prefix = config.get('API_PREFIX') || 'api';
