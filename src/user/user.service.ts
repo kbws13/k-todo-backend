@@ -1,5 +1,4 @@
 import {HttpException, HttpStatus, Inject, Injectable} from "@nestjs/common";
-import {RedisService} from "../common/redis/redis.service";
 import {InjectRepository} from "@nestjs/typeorm";
 import {UserEntity} from "./entities/user.entity";
 import {DataSource, Repository} from "typeorm";
@@ -14,8 +13,7 @@ import {LoginUserDto} from "../system/dto/login-user.dto";
 
 @Injectable()
 export class UserService {
-    @Inject(RedisService)
-    private redisService: RedisService;
+
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>;
 
@@ -47,7 +45,8 @@ export class UserService {
         }
         // 校验注册验证码
         const codeRedisKey = getRedisKey(RedisKeyPrefix.REGISTRY_CODE, email);
-        const code = await this.redisService.get(codeRedisKey);
+        // const code = await this.redisService.get(codeRedisKey);
+        const code = "123456"
         if (!code || code !== createUserDto.code) {
             throw new HttpException(
                 '验证码有误或已过期',

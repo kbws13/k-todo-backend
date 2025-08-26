@@ -2,7 +2,6 @@ import { UserEntity } from "./entities/user.entity";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { LoginUserDto } from "../system/dto/login-user.dto";
 export declare class UserService {
-    private redisService;
     private userRepository;
     private jwtService;
     private mailService;

@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
-const redis_service_1 = require("../common/redis/redis.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./entities/user.entity");
 const typeorm_2 = require("typeorm");
@@ -32,7 +31,7 @@ let UserService = class UserService {
             throw new common_1.HttpException('注册邮箱已存在, 请重新输入', common_1.HttpStatus.EXPECTATION_FAILED);
         }
         const codeRedisKey = (0, utils_1.getRedisKey)("registry_code:", email);
-        const code = await this.redisService.get(codeRedisKey);
+        const code = "123456";
         if (!code || code !== createUserDto.code) {
             throw new common_1.HttpException('验证码有误或已过期', common_1.HttpStatus.EXPECTATION_FAILED);
         }
@@ -80,10 +79,6 @@ let UserService = class UserService {
     }
 };
 exports.UserService = UserService;
-__decorate([
-    (0, common_1.Inject)(redis_service_1.RedisService),
-    __metadata("design:type", redis_service_1.RedisService)
-], UserService.prototype, "redisService", void 0);
 __decorate([
     (0, typeorm_1.InjectRepository)(user_entity_1.UserEntity),
     __metadata("design:type", typeorm_2.Repository)

@@ -1,5 +1,4 @@
 import {forwardRef, Module} from '@nestjs/common';
-import {RedisModule} from "../common/redis/redis.module";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {UserEntity} from "./entities/user.entity";
 import {AuthModule} from "../auth/auth.module";
@@ -11,7 +10,6 @@ import {UserController} from "./user.controller";
 
 @Module({
     imports: [
-        RedisModule,
         TypeOrmModule.forFeature([UserEntity]),
         forwardRef(() => AuthModule),
         // 新增jwt模块

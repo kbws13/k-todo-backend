@@ -1,6 +1,5 @@
 import {Inject, Injectable} from "@nestjs/common";
 import {MailService} from "../common/mail/mail.service";
-import {RedisService} from "../common/redis/redis.service";
 import {InjectRepository} from "@nestjs/typeorm";
 import {UserEntity} from "../user/entities/user.entity";
 import {Repository} from "typeorm";
@@ -11,9 +10,6 @@ import {RedisKeyPrefix} from "../common/enums/redis-key.enum";
 export class SystemService {
     @Inject()
     private mailService: MailService;
-
-    @Inject(RedisService)
-    private redisService: RedisService;
 
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>;
@@ -29,7 +25,7 @@ export class SystemService {
         const { code } = await this.mailService.sendMail(email, text)
         // 缓存Redis
         const redisKey = getRedisKey(RedisKeyPrefix.REGISTRY_CODE, email);
-        await this.redisService.set(redisKey, code, 60*5);
+        // await this.redisService.set(redisKey, code, 60*5);
         return '发送成功';
     }
 }

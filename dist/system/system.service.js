@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SystemService = void 0;
 const common_1 = require("@nestjs/common");
 const mail_service_1 = require("../common/mail/mail.service");
-const redis_service_1 = require("../common/redis/redis.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("../user/entities/user.entity");
 const typeorm_2 = require("typeorm");
@@ -21,7 +20,6 @@ let SystemService = class SystemService {
     async sendMailForRegistry(email, text) {
         const { code } = await this.mailService.sendMail(email, text);
         const redisKey = (0, utils_1.getRedisKey)("registry_code:", email);
-        await this.redisService.set(redisKey, code, 60 * 5);
         return '发送成功';
     }
 };
@@ -30,10 +28,6 @@ __decorate([
     (0, common_1.Inject)(),
     __metadata("design:type", mail_service_1.MailService)
 ], SystemService.prototype, "mailService", void 0);
-__decorate([
-    (0, common_1.Inject)(redis_service_1.RedisService),
-    __metadata("design:type", redis_service_1.RedisService)
-], SystemService.prototype, "redisService", void 0);
 __decorate([
     (0, typeorm_1.InjectRepository)(user_entity_1.UserEntity),
     __metadata("design:type", typeorm_2.Repository)

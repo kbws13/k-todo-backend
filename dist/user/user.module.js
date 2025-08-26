@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModule = void 0;
 const common_1 = require("@nestjs/common");
-const redis_module_1 = require("../common/redis/redis.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./entities/user.entity");
 const auth_module_1 = require("../auth/auth.module");
@@ -23,7 +22,6 @@ exports.UserModule = UserModule;
 exports.UserModule = UserModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            redis_module_1.RedisModule,
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.UserEntity]),
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
             jwt_1.JwtModule.registerAsync({
