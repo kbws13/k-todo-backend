@@ -16,14 +16,11 @@ export class TodoListService {
     @InjectRepository(TodoEntity)
     private todoRepository: Repository<TodoEntity>;
 
-    async list(userId: number) {
-        const todoList = await this.todoListRepository.find({
+    async list(userId: number): Promise<TodoListEntity[]> {
+        return await this.todoListRepository.find({
             where: {userId},
             order: {createTime: 'DESC'},
-        });
-        return {
-            todoList
-        }
+        })
     }
 
     async add(createTodoListDto: CreateTodoListDto, userId: number) {

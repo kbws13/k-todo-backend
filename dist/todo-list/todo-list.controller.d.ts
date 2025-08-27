@@ -5,9 +5,7 @@ export declare class TodoListController {
     private readonly todoListService;
     constructor(todoListService: TodoListService);
     private userService;
-    list(req: any): Promise<{
-        todoList: import("./entity/todo-list.entity").TodoListEntity[];
-    }>;
+    list(req: any): Promise<import("./entity/todo-list.entity").TodoListEntity[]>;
     add(req: any, createTodoListDto: CreateTodoListDto): Promise<import("./entity/todo-list.entity").TodoListEntity>;
     getById(id: number, req: any): Promise<import("./entity/todo-list.entity").TodoListEntity>;
     update(todoListUpdateDto: UpdateTodoListDto, req: any): Promise<{

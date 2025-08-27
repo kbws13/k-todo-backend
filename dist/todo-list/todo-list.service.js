@@ -18,13 +18,10 @@ const class_transformer_1 = require("class-transformer");
 const todo_entity_1 = require("../todo/entity/todo.entity");
 let TodoListService = class TodoListService {
     async list(userId) {
-        const todoList = await this.todoListRepository.find({
+        return await this.todoListRepository.find({
             where: { userId },
             order: { createTime: 'DESC' },
         });
-        return {
-            todoList
-        };
     }
     async add(createTodoListDto, userId) {
         const todoList = (0, class_transformer_1.plainToClass)(todo_list_entity_1.TodoListEntity, { ...createTodoListDto, userId, }, { ignoreDecorators: true });

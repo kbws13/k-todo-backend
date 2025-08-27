@@ -4,9 +4,7 @@ import { UpdateTodoListDto } from "./dto/update-todo-list.dto";
 export declare class TodoListService {
     private todoListRepository;
     private todoRepository;
-    list(userId: number): Promise<{
-        todoList: TodoListEntity[];
-    }>;
+    list(userId: number): Promise<TodoListEntity[]>;
     add(createTodoListDto: CreateTodoListDto, userId: number): Promise<TodoListEntity>;
     getById(id: number, userId: number): Promise<TodoListEntity>;
     update(updateTodoListDto: UpdateTodoListDto, userId: number): Promise<{
