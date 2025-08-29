@@ -20,9 +20,13 @@ let ReportController = class ReportController {
     constructor(reportService) {
         this.reportService = reportService;
     }
-    daily(req) {
+    generateDaily(req) {
         const userId = this.userService.verifyToken(req.headers['token']);
-        return this.reportService.getDailyReport(userId);
+        return this.reportService.generateDailyReport(userId);
+    }
+    generateWeekly(req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.reportService.generateWeeklyReport(userId);
     }
 };
 exports.ReportController = ReportController;
@@ -31,12 +35,19 @@ __decorate([
     __metadata("design:type", user_service_1.UserService)
 ], ReportController.prototype, "userService", void 0);
 __decorate([
-    (0, common_1.Get)('daily'),
+    (0, common_1.Get)('generateDaily'),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], ReportController.prototype, "daily", null);
+], ReportController.prototype, "generateDaily", null);
+__decorate([
+    (0, common_1.Get)('generateWeekly'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ReportController.prototype, "generateWeekly", null);
 exports.ReportController = ReportController = __decorate([
     (0, common_1.Controller)('report'),
     __metadata("design:paramtypes", [report_service_1.ReportService])

@@ -10,9 +10,15 @@ export class ReportController {
     @Inject(UserService)
     private userService: UserService;
 
-    @Get('daily')
-    daily(@Req() req: any) {
+    @Get('generateDaily')
+    generateDaily(@Req() req: any) {
         const userId = this.userService.verifyToken(req.headers['token'])
-        return this.reportService.getDailyReport(userId)
+        return this.reportService.generateDailyReport(userId)
+    }
+    
+    @Get('generateWeekly')
+    generateWeekly(@Req() req: any) {
+        const userId = this.userService.verifyToken(req.headers['token'])
+        return this.reportService.generateWeeklyReport(userId)
     }
 }

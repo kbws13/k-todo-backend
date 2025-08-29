@@ -15,13 +15,15 @@ const report_entity_1 = require("./entities/report.entity");
 const todo_list_module_1 = require("../todo-list/todo-list.module");
 const todo_module_1 = require("../todo/todo.module");
 const user_module_1 = require("../user/user.module");
+const todo_entity_1 = require("../todo/entity/todo.entity");
+const todo_list_entity_1 = require("../todo-list/entity/todo-list.entity");
 let ReportModule = class ReportModule {
 };
 exports.ReportModule = ReportModule;
 exports.ReportModule = ReportModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([report_entity_1.ReportEntity]),
+            typeorm_1.TypeOrmModule.forFeature([report_entity_1.ReportEntity, todo_entity_1.TodoEntity, todo_list_entity_1.TodoListEntity]),
             todo_module_1.TodoModule,
             todo_list_module_1.TodoListModule,
             user_module_1.UserModule,
