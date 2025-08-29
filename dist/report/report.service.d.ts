@@ -1,5 +1,7 @@
 import { ReportEntity } from "./entities/report.entity";
+import { GoogleGenAI } from "@google/genai";
 export declare class ReportService {
+    geminiAI: GoogleGenAI;
     private reportRepository;
     private todoListService;
     private todoService;
@@ -9,6 +11,11 @@ export declare class ReportService {
         content: string;
         userId: number;
     } & ReportEntity>;
-    generateWeeklyReport(userId: number): Promise<import("@google/genai").GenerateContentResponse>;
+    generateWeeklyReport(userId: number): Promise<{
+        title: string;
+        content: string;
+        userId: number;
+        type: number;
+    } & ReportEntity>;
     getPromptAsync(): Promise<string>;
 }

@@ -9,11 +9,14 @@ import {TodoEntity} from "../todo/entity/todo.entity";
 import {GoogleGenAI} from "@google/genai";
 import * as path from "node:path";
 import * as fs from "node:fs";
+import {GOOGLE_GEMINI} from "../gemini/gemini.module";
 
-const ai = new GoogleGenAI({apiKey: 'AIzaSyBSXnMnGG1Uy_oAIFzj6Y0MxG9HXSrzh9U'})
 
 @Injectable()
 export class ReportService {
+
+    @Inject(GOOGLE_GEMINI)
+    geminiAI: GoogleGenAI
 
     @InjectRepository(ReportEntity)
     private reportRepository: Repository<ReportEntity>
@@ -72,7 +75,7 @@ export class ReportService {
             },
         });
         const prompt = await this.getPromptAsync();
-        const res = await ai.models.generateContent({
+        const res = await this.geminiAI.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: JSON.stringify(reportList),
             config: {
@@ -82,7 +85,20 @@ export class ReportService {
                 }
             }
         })
-        return res
+        const formatDate = (d: Date): string => {
+            const month = d.getMonth() + 1;
+            const day = d.getDate();
+            return `${month}.${day}`;
+        };
+
+        console.log(`${formatDate(monday)}-${formatDate(nextMonday)}`)
+
+        return await this.reportRepository.save({
+            title: `${formatDate(monday)}-${formatDate(nextMonday)}`,
+            content: res.text,
+            userId: userId,
+            type: 1,
+        })
     }
 
     async getPromptAsync(): Promise<string> {

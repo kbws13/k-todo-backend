@@ -8,5 +8,10 @@ export declare class ReportController {
         content: string;
         userId: number;
     } & import("./entities/report.entity").ReportEntity>;
-    generateWeekly(req: any): Promise<import("@google/genai").GenerateContentResponse>;
+    generateWeekly(req: any): Promise<{
+        title: string;
+        content: string;
+        userId: number;
+        type: number;
+    } & import("./entities/report.entity").ReportEntity>;
 }

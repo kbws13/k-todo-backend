@@ -12,10 +12,11 @@ import {ResponseInterceptor} from "./common/response.interceptor";
 import {JwtAuthGuard} from "./auth/jwt-auth.guard";
 import {LoggerMiddleware} from "./common/logger.middleware";
 import {RoleAuthGuard} from "./auth/role-auth.guard";
-import { SystemModule } from './system/system.module';
-import { TodoListModule } from './todo-list/todo-list.module';
-import { TodoModule } from './todo/todo.module';
-import { ReportModule } from './report/report.module';
+import {SystemModule} from './system/system.module';
+import {TodoListModule} from './todo-list/todo-list.module';
+import {TodoModule} from './todo/todo.module';
+import {ReportModule} from './report/report.module';
+import {GeminiModule} from "./gemini/gemini.module";
 
 @Module({
     imports: [
@@ -47,7 +48,8 @@ import { ReportModule } from './report/report.module';
         SystemModule,
         TodoListModule,
         TodoModule,
-        ReportModule
+        ReportModule,
+        GeminiModule,
     ],
     controllers: [AppController],
     providers: [
@@ -74,7 +76,7 @@ import { ReportModule } from './report/report.module';
         },
     ],
 })
-export class AppModule implements NestModule{
+export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
         consumer.apply(LoggerMiddleware).forRoutes('*');
     }

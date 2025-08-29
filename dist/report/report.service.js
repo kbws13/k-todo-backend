@@ -57,7 +57,7 @@ const todo_entity_1 = require("../todo/entity/todo.entity");
 const genai_1 = require("@google/genai");
 const path = __importStar(require("node:path"));
 const fs = __importStar(require("node:fs"));
-const ai = new genai_1.GoogleGenAI({ apiKey: 'AIzaSyBSXnMnGG1Uy_oAIFzj6Y0MxG9HXSrzh9U' });
+const gemini_module_1 = require("../gemini/gemini.module");
 let ReportService = class ReportService {
     async generateDailyReport(userId) {
         const todoLists = await this.todoListService.list(userId);
@@ -94,7 +94,7 @@ let ReportService = class ReportService {
             },
         });
         const prompt = await this.getPromptAsync();
-        const res = await ai.models.generateContent({
+        const res = await this.geminiAI.models.generateContent({
             model: 'gemini-2.5-flash',
             contents: JSON.stringify(reportList),
             config: {
@@ -104,7 +104,18 @@ let ReportService = class ReportService {
                 }
             }
         });
-        return res;
+        const formatDate = (d) => {
+            const month = d.getMonth() + 1;
+            const day = d.getDate();
+            return `${month}.${day}`;
+        };
+        console.log(`${formatDate(monday)}-${formatDate(nextMonday)}`);
+        return await this.reportRepository.save({
+            title: `${formatDate(monday)}-${formatDate(nextMonday)}`,
+            content: res.text,
+            userId: userId,
+            type: 1,
+        });
     }
     async getPromptAsync() {
         const filePath = path.join(process.cwd(), 'prompt.txt');
@@ -112,6 +123,10 @@ let ReportService = class ReportService {
     }
 };
 exports.ReportService = ReportService;
+__decorate([
+    (0, common_1.Inject)(gemini_module_1.GOOGLE_GEMINI),
+    __metadata("design:type", genai_1.GoogleGenAI)
+], ReportService.prototype, "geminiAI", void 0);
 __decorate([
     (0, typeorm_1.InjectRepository)(report_entity_1.ReportEntity),
     __metadata("design:type", typeorm_2.Repository)
