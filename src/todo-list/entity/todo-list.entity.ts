@@ -10,6 +10,9 @@ export class TodoListEntity {
     @Column({type: 'varchar', length: 200, comment: '列表名'})
     content: string;
 
+    @Column({type: 'varchar', length: 200, nullable: true, comment: '任务列表描述'})
+    desc: string;
+
     @Column({type: 'int', nullable: false, comment: '用户 id'})
     userId: number;
 

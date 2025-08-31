@@ -6,6 +6,7 @@ import {CreateTodoListDto} from "./dto/create-todo-list.dto";
 import {plainToClass} from "class-transformer";
 import {UpdateTodoListDto} from "./dto/update-todo-list.dto";
 import {TodoEntity} from "../todo/entity/todo.entity";
+import {OverallEntity} from "./vo/OverallEntity";
 
 @Injectable()
 export class TodoListService {
@@ -15,6 +16,29 @@ export class TodoListService {
 
     @InjectRepository(TodoEntity)
     private todoRepository: Repository<TodoEntity>;
+    
+    async overall(userId: number): Promise<OverallEntity> {
+        const unCompletedCount = (await this.todoRepository.find({
+            where: {
+                userId: userId,
+                completed: false,
+            }
+        })).length
+        const completedCount = (await this.todoRepository.find({
+            where: {
+                userId: userId,
+                completed: true,
+            }
+        })).length
+        const progress = completedCount === 0 ? 0 : parseFloat(((completedCount / (completedCount + unCompletedCount)) * 100).toFixed(2));
+
+        const result = new OverallEntity();
+        result.completed = completedCount;
+        result.unComplete = unCompletedCount;
+        result.progress = progress;
+
+        return result;
+    }
 
     async list(userId: number): Promise<TodoListEntity[]> {
         return await this.todoListRepository.find({

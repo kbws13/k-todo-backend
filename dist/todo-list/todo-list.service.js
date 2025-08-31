@@ -16,7 +16,28 @@ const todo_list_entity_1 = require("./entity/todo-list.entity");
 const typeorm_2 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const todo_entity_1 = require("../todo/entity/todo.entity");
+const OverallEntity_1 = require("./vo/OverallEntity");
 let TodoListService = class TodoListService {
+    async overall(userId) {
+        const unCompletedCount = (await this.todoRepository.find({
+            where: {
+                userId: userId,
+                completed: false,
+            }
+        })).length;
+        const completedCount = (await this.todoRepository.find({
+            where: {
+                userId: userId,
+                completed: true,
+            }
+        })).length;
+        const progress = completedCount === 0 ? 0 : parseFloat(((completedCount / (completedCount + unCompletedCount)) * 100).toFixed(2));
+        const result = new OverallEntity_1.OverallEntity();
+        result.completed = completedCount;
+        result.unComplete = unCompletedCount;
+        result.progress = progress;
+        return result;
+    }
     async list(userId) {
         return await this.todoListRepository.find({
             where: { userId },

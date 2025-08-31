@@ -11,6 +11,7 @@ export declare class TodoListController {
     update(todoListUpdateDto: UpdateTodoListDto, req: any): Promise<{
         id: number;
         content: string;
+        desc: string;
         userId: number;
         totalCount: number;
         completeCount: number;
@@ -18,4 +19,5 @@ export declare class TodoListController {
         updateTime: Date;
     } & import("./entity/todo-list.entity").TodoListEntity>;
     delete(id: number, req: any): Promise<import("typeorm").DeleteResult>;
+    overall(req: any): Promise<import("./vo/OverallEntity").OverallEntity>;
 }

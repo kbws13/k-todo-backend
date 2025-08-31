@@ -40,4 +40,10 @@ export class TodoListController {
         const userId = this.userService.verifyToken(req.headers['token'])
         return this.todoListService.delete(id, userId);
     }
+    
+    @Get("overall")
+    overall(@Req() req: any) {
+        const userId = this.userService.verifyToken(req.headers['token'])
+        return this.todoListService.overall(userId);
+    }
 }

@@ -28,6 +28,10 @@ __decorate([
     __metadata("design:type", String)
 ], TodoListEntity.prototype, "content", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', length: 200, nullable: true, comment: '任务列表描述' }),
+    __metadata("design:type", String)
+], TodoListEntity.prototype, "desc", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'int', nullable: false, comment: '用户 id' }),
     __metadata("design:type", Number)
 ], TodoListEntity.prototype, "userId", void 0);

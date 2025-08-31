@@ -42,6 +42,10 @@ let TodoListController = class TodoListController {
         const userId = this.userService.verifyToken(req.headers['token']);
         return this.todoListService.delete(id, userId);
     }
+    overall(req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.todoListService.overall(userId);
+    }
 };
 exports.TodoListController = TodoListController;
 __decorate([
@@ -87,6 +91,13 @@ __decorate([
     __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], TodoListController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Get)("overall"),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], TodoListController.prototype, "overall", null);
 exports.TodoListController = TodoListController = __decorate([
     (0, common_1.Controller)('todoList'),
     __metadata("design:paramtypes", [todo_list_service_1.TodoListService])
