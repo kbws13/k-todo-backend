@@ -1,5 +1,5 @@
 export class CreateTodoDto {
-    content: string;
+    title: string;
     desc?: string;
     todoListId: number;
     remindTime?: Date;

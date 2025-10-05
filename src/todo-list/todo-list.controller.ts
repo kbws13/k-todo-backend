@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Inject, Param, Post, Req} from "@nestjs/common";
+import {Body, Controller, Get, Inject, Param, Post, Query, Req} from "@nestjs/common";
 import {TodoListService} from "./todo-list.service";
 import {UserService} from "../user/user.service";
 import {CreateTodoListDto} from "./dto/create-todo-list.dto";
@@ -35,8 +35,8 @@ export class TodoListController {
         return this.todoListService.update(todoListUpdateDto, userId);
     }
 
-    @Post('delete')
-    delete(@Param('id') id: number, @Req() req: any) {
+    @Get('delete')
+    delete(@Query('id') id: number, @Req() req: any) {
         const userId = this.userService.verifyToken(req.headers['token'])
         return this.todoListService.delete(id, userId);
     }

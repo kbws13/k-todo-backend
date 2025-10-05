@@ -22,9 +22,7 @@ export class TodoService {
             where: {userId, todoListId},
             order: {createTime: 'DESC'}
         });
-        return {
-            todos
-        }
+        return todos
     }
 
     async add(createTodoDto: CreateTodoDto, userId: number) {

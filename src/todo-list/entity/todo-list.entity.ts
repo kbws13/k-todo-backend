@@ -8,7 +8,7 @@ export class TodoListEntity {
     id: number;
 
     @Column({type: 'varchar', length: 200, comment: '列表名'})
-    content: string;
+    title: string;
 
     @Column({type: 'varchar', length: 200, nullable: true, comment: '任务列表描述'})
     desc: string;

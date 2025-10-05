@@ -36,7 +36,7 @@ export class TodoController {
         return this.todoService.update(updateTodoDto, userId);
     }
 
-    @Post('delete')
+    @Get('delete')
     delete(@Param('id') id: number, @Req() req: any) {
         const userId = this.userService.verifyToken(req.headers['token'])
         return this.todoService.delete(id, userId);

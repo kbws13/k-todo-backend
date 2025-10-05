@@ -1,3 +1,3 @@
 export class CreateTodoListDto {
-    content: string;
+    title: string;
 }

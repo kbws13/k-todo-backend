@@ -8,7 +8,7 @@ export class TodoEntity {
     id: number;
 
     @Column({type: 'text', nullable: false, comment: '任务名'})
-    content: string;
+    title: string;
 
     @Column({type: 'text', nullable: true, comment: '备注'})
     desc: string;

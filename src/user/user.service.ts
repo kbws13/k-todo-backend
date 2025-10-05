@@ -101,6 +101,7 @@ export class UserService {
         const user = await this.userRepository.findOneBy({id});
         if (!user) return null;
         delete user.password;
+        delete user.salt;
         return user;
     }
 

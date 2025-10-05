@@ -5,17 +5,24 @@ import {ReportService} from "./report.service";
 @Controller('report')
 export class ReportController {
 
-    constructor(private readonly reportService: ReportService) {}
+    constructor(private readonly reportService: ReportService) {
+    }
 
     @Inject(UserService)
     private userService: UserService;
+
+    @Get('list')
+    list(@Req() req: any) {
+        const userId = this.userService.verifyToken(req.headers['token'])
+        return this.reportService.list(userId);
+    }
 
     @Get('generateDaily')
     generateDaily(@Req() req: any) {
         const userId = this.userService.verifyToken(req.headers['token'])
         return this.reportService.generateDailyReport(userId)
     }
-    
+
     @Get('generateWeekly')
     generateWeekly(@Req() req: any) {
         const userId = this.userService.verifyToken(req.headers['token'])
