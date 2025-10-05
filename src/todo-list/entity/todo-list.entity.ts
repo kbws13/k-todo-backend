@@ -7,7 +7,7 @@ export class TodoListEntity {
     @PrimaryGeneratedColumn({type: 'int'})
     id: number;
 
-    @Column({type: 'varchar', length: 200, comment: '列表名'})
+    @Column({type: 'varchar', length: 200, nullable: false, comment: '列表名'})
     title: string;
 
     @Column({type: 'varchar', length: 200, nullable: true, comment: '任务列表描述'})

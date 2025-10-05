@@ -1,6 +1,6 @@
 export declare class TodoEntity {
     id: number;
-    content: string;
+    title: string;
     desc: string;
     todoListId: number;
     completed: boolean;

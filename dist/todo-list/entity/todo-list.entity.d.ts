@@ -1,6 +1,6 @@
 export declare class TodoListEntity {
     id: number;
-    content: string;
+    title: string;
     desc: string;
     userId: number;
     totalCount: number;

@@ -24,9 +24,9 @@ __decorate([
     __metadata("design:type", Number)
 ], TodoListEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar', length: 200, comment: '列表名' }),
+    (0, typeorm_1.Column)({ type: 'varchar', length: 200, nullable: false, comment: '列表名' }),
     __metadata("design:type", String)
-], TodoListEntity.prototype, "content", void 0);
+], TodoListEntity.prototype, "title", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar', length: 200, nullable: true, comment: '任务列表描述' }),
     __metadata("design:type", String)

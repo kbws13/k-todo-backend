@@ -5,14 +5,12 @@ import { CompleteTodoDto } from "./dto/complete-todo.dto";
 export declare class TodoService {
     private todoRepository;
     private todoListService;
-    list(todoListId: number, userId: number): Promise<{
-        todos: TodoEntity[];
-    }>;
+    list(todoListId: number, userId: number): Promise<TodoEntity[]>;
     add(createTodoDto: CreateTodoDto, userId: number): Promise<TodoEntity>;
     getById(id: number, userId: number): Promise<TodoEntity>;
     update(updateTodoDto: UpdateTodoDto, userId: number): Promise<{
         id: number;
-        content: string;
+        title: string;
         desc: string;
         completed: boolean;
         todoListId: number;

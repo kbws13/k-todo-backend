@@ -10,7 +10,7 @@ export declare class TodoListController {
     getById(id: number, req: any): Promise<import("./entity/todo-list.entity").TodoListEntity>;
     update(todoListUpdateDto: UpdateTodoListDto, req: any): Promise<{
         id: number;
-        content: string;
+        title: string;
         desc: string;
         userId: number;
         totalCount: number;

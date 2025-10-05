@@ -11,7 +11,7 @@ export declare class TodoListService {
     getById(id: number, userId: number): Promise<TodoListEntity>;
     update(updateTodoListDto: UpdateTodoListDto, userId: number): Promise<{
         id: number;
-        content: string;
+        title: string;
         desc: string;
         userId: number;
         totalCount: number;

@@ -17,6 +17,18 @@ const typeorm_1 = require("typeorm");
 const class_transformer_1 = require("class-transformer");
 const dayjs_1 = __importDefault(require("dayjs"));
 let ReportEntity = class ReportEntity {
+    get taskIdsAsArray() {
+        try {
+            const ids = JSON.parse(this.taskIds);
+            return Array.isArray(ids) ? ids : [];
+        }
+        catch {
+            return [];
+        }
+    }
+    setTaskIds(ids) {
+        this.taskIds = JSON.stringify(ids);
+    }
 };
 exports.ReportEntity = ReportEntity;
 __decorate([
@@ -39,6 +51,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'int', nullable: false, default: 0, comment: '0:日报 1:周报' }),
     __metadata("design:type", Number)
 ], ReportEntity.prototype, "type", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'varchar', length: 255, nullable: false, default: '', comment: 'todo id 列表' }),
+    __metadata("design:type", String)
+], ReportEntity.prototype, "taskIds", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', comment: '创建时间' }),
     (0, class_transformer_1.Transform)(({ value }) => value ? (0, dayjs_1.default)(value).format('YYYY-MM-DD HH:mm:ss') : null),

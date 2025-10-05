@@ -20,6 +20,10 @@ let ReportController = class ReportController {
     constructor(reportService) {
         this.reportService = reportService;
     }
+    list(req) {
+        const userId = this.userService.verifyToken(req.headers['token']);
+        return this.reportService.list(userId);
+    }
     generateDaily(req) {
         const userId = this.userService.verifyToken(req.headers['token']);
         return this.reportService.generateDailyReport(userId);
@@ -34,6 +38,13 @@ __decorate([
     (0, common_1.Inject)(user_service_1.UserService),
     __metadata("design:type", user_service_1.UserService)
 ], ReportController.prototype, "userService", void 0);
+__decorate([
+    (0, common_1.Get)('list'),
+    __param(0, (0, common_1.Req)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ReportController.prototype, "list", null);
 __decorate([
     (0, common_1.Get)('generateDaily'),
     __param(0, (0, common_1.Req)()),

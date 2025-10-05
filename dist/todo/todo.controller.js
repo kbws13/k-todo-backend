@@ -90,7 +90,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "update", null);
 __decorate([
-    (0, common_1.Post)('delete'),
+    (0, common_1.Get)('delete'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),

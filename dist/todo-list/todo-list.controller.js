@@ -84,8 +84,8 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TodoListController.prototype, "update", null);
 __decorate([
-    (0, common_1.Post)('delete'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('delete'),
+    __param(0, (0, common_1.Query)('id')),
     __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object]),

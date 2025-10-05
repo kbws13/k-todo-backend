@@ -26,9 +26,7 @@ let TodoService = class TodoService {
             where: { userId, todoListId },
             order: { createTime: 'DESC' }
         });
-        return {
-            todos
-        };
+        return todos;
     }
     async add(createTodoDto, userId) {
         const todoList = await this.todoListService.getById(createTodoDto.todoListId, userId);

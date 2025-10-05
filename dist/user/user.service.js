@@ -65,6 +65,7 @@ let UserService = class UserService {
         if (!user)
             return null;
         delete user.password;
+        delete user.salt;
         return user;
     }
     generateAccessToken(payload) {

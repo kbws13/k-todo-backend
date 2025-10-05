@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ type: 'text', nullable: false, comment: '任务名' }),
     __metadata("design:type", String)
-], TodoEntity.prototype, "content", void 0);
+], TodoEntity.prototype, "title", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'text', nullable: true, comment: '备注' }),
     __metadata("design:type", String)

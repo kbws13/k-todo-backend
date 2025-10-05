@@ -6,10 +6,13 @@ export declare class ReportService {
     private todoListService;
     private todoService;
     private todoRepository;
+    list(userId: number): Promise<ReportEntity[]>;
     generateDailyReport(userId: number): Promise<{
         title: string;
         content: string;
         userId: number;
+        type: number;
+        taskIds: string;
     } & ReportEntity>;
     generateWeeklyReport(userId: number): Promise<{
         title: string;

@@ -59,20 +59,42 @@ const path = __importStar(require("node:path"));
 const fs = __importStar(require("node:fs"));
 const gemini_module_1 = require("../gemini/gemini.module");
 let ReportService = class ReportService {
+    async list(userId) {
+        return this.reportRepository.find({
+            where: { userId },
+            order: { createTime: 'DESC' },
+        });
+    }
     async generateDailyReport(userId) {
-        const todoLists = await this.todoListService.list(userId);
-        let markdown = '';
-        for (const list of todoLists) {
-            const todos = await this.todoService.getCompletedToday(list.id, userId);
-            if (todos.length > 0) {
-                markdown += `## ${list.content}:\n`;
-                markdown += todos.map(item => `- ${item.content}\n`);
+        const today = (0, dayjs_1.default)().startOf('day').toDate();
+        const tomorrow = (0, dayjs_1.default)(today).add(1, 'day').toDate();
+        const todos = await this.todoRepository.find({
+            where: {
+                userId,
+                completed: true,
+                updateTime: (0, typeorm_2.Raw)((columnAlias) => `${columnAlias} >= :start AND ${columnAlias} < :end`, { start: today, end: tomorrow }),
+            },
+            order: {
+                createTime: 'ASC',
+            },
+        });
+        const prompt = await this.getPromptAsync();
+        const res = await this.geminiAI.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: JSON.stringify(todos),
+            config: {
+                systemInstruction: prompt,
+                thinkingConfig: {
+                    thinkingBudget: 0
+                }
             }
-        }
+        });
         return await this.reportRepository.save({
             title: (0, dayjs_1.default)().format('YYYY-MM-DD'),
-            content: markdown,
+            content: res.text,
             userId: userId,
+            type: 0,
+            taskIds: JSON.stringify(todos.map(t => t.id)),
         });
     }
     async generateWeeklyReport(userId) {
